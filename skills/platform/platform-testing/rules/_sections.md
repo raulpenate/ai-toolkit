@@ -1,8 +1,26 @@
-## Mocking
+# Sections
 
-- [mock-boundaries-not-internals](./mock-boundaries-not-internals.md) — Mock at system boundaries (network, DB), not between internal modules
-- [mock-use-real-database](./mock-use-real-database.md) — Use a real test database instead of mocking the data layer
+This file defines all sections, their ordering, impact levels, and descriptions.
+The section ID (in parentheses) is the filename prefix used to group rules.
 
-## Test Data
+---
 
-- [test-factories](./test-factories.md) — Use factory functions to create isolated test data with sensible defaults
+## 1. Test Design (test)
+
+**Impact:** HIGH
+**Description:** How you structure, name, and focus tests determines whether they catch real bugs and survive refactors. Well-designed tests are readable, targeted, and cover both happy and error paths.
+
+## 2. Mocking (mock)
+
+**Impact:** HIGH
+**Description:** Mock only at system boundaries — external APIs, time, randomness. Mocking internal code gives false confidence and makes refactoring painful.
+
+## 3. Test Data (data)
+
+**Impact:** MEDIUM
+**Description:** Each test must own its data. Shared or hardcoded test state causes flaky tests, ordering dependencies, and cross-test contamination.
+
+## 4. Reliability (rel)
+
+**Impact:** HIGH
+**Description:** Tests must be deterministic. Non-determinism from async code, timing, or shared state is the primary source of flaky tests in CI.

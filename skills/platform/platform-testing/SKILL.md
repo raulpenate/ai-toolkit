@@ -1,7 +1,21 @@
 ---
 name: platform-testing
-description: Framework-agnostic testing principles — test philosophy, structure, mocking
-  boundaries. Use when writing, reviewing, or debugging tests.
+description: >
+  Framework-agnostic testing principles for test design, structure, mocking strategy, and
+  reliability. Use when writing tests, reviewing test quality, debugging flaky tests, or
+  deciding what to test and how to structure it. Triggers on: writing new tests, naming tests,
+  mocking boundaries, async test patterns, test data setup, error path coverage, test isolation.
+
+  Trigger scenarios:
+  1. Writing or reviewing any test file
+  2. Deciding what to mock and at which boundary
+  3. Setting up test data or database fixtures
+  4. Debugging flaky or non-deterministic tests
+  5. Reviewing test naming or structure
+  6. Ensuring error paths are covered
+
+  Trigger phrases: "write a test", "add tests", "test this", "mock this", "how should I test",
+  "test structure", "flaky test", "test isolation", "test data", "what to assert"
 metadata:
   category: platform
   extends: core-coding-standards
@@ -9,20 +23,21 @@ metadata:
   - testing
   - mocking
   - test-design
+  - assertions
+  - integration
+  - test-structure
   status: ready
-  version: 3
+  version: 4
 ---
 
 # Principles
 
-- Test behavior, not implementation details
-- Prefer integration tests over unit tests (Testing Trophy)
-- Arrange-Act-Assert (AAA) pattern in every test
-- Tests must be independent — no shared mutable state
-- Keep tests small and focused — one behavior per test
-- Name tests to describe the behavior being verified
-- Optimize for confidence, not coverage percentage
-- Don't chase 100% coverage — test what matters
+- Prefer integration tests over unit tests — test the whole behavior, not individual functions in isolation (Testing Trophy)
+- Optimize for confidence, not coverage percentage — test what matters, not what's easy to count
+- Mock at system boundaries only — external APIs, time, randomness — not between your own modules
+- Always cover error paths — validation errors, auth errors, not-found cases are as important as the happy path
+
+See rules for detailed patterns on naming, structure, assertions, async, and test data.
 
 # Rules
 
@@ -32,9 +47,15 @@ See [rules index](rules/_sections.md) for detailed patterns.
 
 ### Positive Trigger
 
-User: "Define integration-vs-unit test boundaries and mocking strategy."
+User: "Write tests for this invitation endpoint — what should I cover and how should I structure them?"
 
-Expected behavior: Use `platform-testing` guidance, follow its workflow, and return actionable output.
+Expected behavior: Use `platform-testing` guidance, apply naming/structure/error-path rules, and return concrete test skeletons covering happy path and error scenarios.
+
+### Positive Trigger
+
+User: "My test is flaky — it passes locally but fails in CI sometimes."
+
+Expected behavior: Apply `rel-async-deterministic` and `data-test-isolation` rules to diagnose timing or shared-state issues.
 
 ### Non-Trigger
 
@@ -54,7 +75,7 @@ Expected behavior: Do not prioritize `platform-testing`; choose a more relevant 
 
 - Error: Instructions from multiple skills conflict in one task.
 - Cause: Overlapping scope across loaded skills.
-- Solution: State which skill is authoritative for the current step and apply that workflow first.
+- Solution: State which skill is authoritative for the current step and apply that workflow first. Framework skills (tech-vitest) extend this skill — prefer framework-specific guidance when available.
 
 ### Output Is Too Generic
 

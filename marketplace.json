@@ -91,12 +91,15 @@
       "tags": [
         "testing",
         "mocking",
-        "test-design"
+        "test-design",
+        "assertions",
+        "integration",
+        "test-structure"
       ],
       "extends": "core-coding-standards",
       "status": "ready",
-      "rules": 3,
-      "version": 3
+      "rules": 9,
+      "version": 4
     },
     {
       "name": "platform-cli",
