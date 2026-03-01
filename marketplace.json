@@ -47,8 +47,8 @@
       ],
       "extends": "core-coding-standards",
       "status": "ready",
-      "rules": 6,
-      "version": 3
+      "rules": 9,
+      "version": 4
     },
     {
       "name": "platform-backend",

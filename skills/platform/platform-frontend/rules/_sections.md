@@ -1,17 +1,31 @@
-## Components
+# Sections
 
-- [component-single-responsibility](./component-single-responsibility.md) — Each component handles one concern
-- [component-composition](./component-composition.md) — Compose small components instead of building monoliths
-- [component-use-link](./component-use-link.md) — Use the framework's Link component for client-side navigation
+This file defines all sections, their ordering, impact levels, and descriptions.
+The section ID (in parentheses) is the filename prefix used to group rules.
 
-## Data
+---
 
-- [data-loading-states](./data-loading-states.md) — Handle loading, error, and empty states explicitly
+## 1. Components (component)
 
-## State
+**Impact:** HIGH
+**Description:** How you structure and compose components determines how well your UI scales. Components should be focused, composable, and isolate failures from spreading.
 
-- [state-server-vs-client](./state-server-vs-client.md) — Separate server cache from client UI state
+## 2. Data (data)
 
-## Organization
+**Impact:** HIGH
+**Description:** Data fetching, loading states, and form validation shape how your UI handles real-world conditions. Always handle loading, error, and empty states explicitly.
 
-- [org-no-barrel-files](./org-no-barrel-files.md) — Never use index.ts barrel re-exports
+## 3. State (state)
+
+**Impact:** HIGH
+**Description:** State placement determines complexity. Start local, lift only when shared, and keep server cache separate from UI state.
+
+## 4. Organization (org)
+
+**Impact:** MEDIUM
+**Description:** File and module organization affects build performance and refactorability. Avoid patterns that break tree-shaking or create hidden coupling.
+
+## 5. Performance (perf)
+
+**Impact:** MEDIUM
+**Description:** Measure before optimizing. Route-level code splitting and targeted memoization are the highest-leverage frontend performance techniques.
