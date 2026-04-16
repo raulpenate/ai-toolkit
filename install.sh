@@ -21,12 +21,11 @@ TMP=$(mktemp)
 curl -fsSL "$URL" -o "$TMP"
 chmod +x "$TMP"
 
-# macOS Gatekeeper kills unsigned binaries downloaded from the internet.
-# Strip the quarantine attribute and ad-hoc sign so it runs without an
-# Apple Developer account.
+# macOS Gatekeeper kills downloaded binaries that carry the quarantine
+# attribute. Bun compiles with an ad-hoc signature, so stripping the
+# xattr is enough to let it run without an Apple Developer account.
 if [ "$(uname -s)" = "Darwin" ]; then
   xattr -d com.apple.quarantine "$TMP" 2>/dev/null || true
-  codesign --sign - "$TMP" 2>/dev/null || true
 fi
 
 if [ -w "$INSTALL_DIR" ]; then
