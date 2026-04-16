@@ -73,7 +73,12 @@ jobs:
             outfile="dist-bin/corvus-${platform}"
             echo "  Building ${platform}..."
             bun build src/index.ts --compile --target="$target" --outfile="$outfile"
-            echo "  Built ${outfile}"
+            # Bun emits a malformed code signature that Apple Silicon rejects
+            # with SIGKILL. Strip it and ad-hoc re-sign so the binary runs
+            # without a Developer ID certificate.
+            codesign --remove-signature "$outfile"
+            codesign --sign - "$outfile"
+            echo "  Built and signed ${outfile}"
           done
 
       - name: Smoke test arm64 binary
